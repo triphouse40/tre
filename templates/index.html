@@ -1,0 +1,165 @@
+{% extends "layout.html"%}
+
+{% block styler %}
+    <link rel="stylesheet" href= "static/fontees.css" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sedgwick Ave Display">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patrick Hand">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie Flower">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great Vibes">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Permanent Marker">
+    <script src="static/javascript/indexx.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+{% endblock %}
+
+
+{% block body %}
+
+    <!-- This here is gonna be the head I think... -->
+    <div class="grid grid-cols-3 gap-2">
+        <div></div>
+        <!-- This contains a users username -->
+        <div class=" rounded-b-lg bg-slate-500 px-3 text-center">
+            <ul class="list-disc list-inside">
+                <li> {{userr}} </li>
+            </ul>
+        </div>
+
+        <div></div>
+    </div>
+    
+    <!-- This will be a type of clipboard -->
+    <div class=" mx-8">
+        <!-- This is for the three rectangles -->
+        <div class=" grid bg-slate-950 rounded-md grid-cols-3 gap-2 h-12 my-2">
+            <div class=" bg-slate-700 my-1 rounded-md py-1 flex justify-between">
+                <button class=" bg-black ml-2 rounded-full w-16 tooltip chhange">
+                    <span class="tooltiptext">Mense</span>
+                </button>
+                <button class=" bg-black rounded-full w-16 tooltip chhange" id="sendd" onclick="sendder()">
+                    <span class="tooltiptext">Send</span>
+                </button>
+                <button class=" bg-black rounded-full w-16 tooltip chhange">
+                    <span class="tooltiptext">Friends</span>
+                </button>
+                <form action="/logout" method="post" class="inline-flex">
+                    <button class=" bg-red-700 mr-2 rounded-full w-16 tooltip" type="submit">
+                        <span class="tooltiptext">Logout</span>
+                    </button>
+                </form>
+            </div>
+            <button class="bg-slate-950 my-1 rounded-md mx-2 border-2 border-slate-600 hover:border-purple-600" id="pUblic" onclick="p_or_p('public')">
+                Public
+            </button>
+            <button class=" bg-slate-950 my-1 rounded-md border-2 border-slate-700 hover:border-purple-800" id="pRivate" onclick="p_or_p('private')">
+                Private
+            </button>
+        </div>
+
+        <!--  This is for the two rectangles with different sizes -->
+        <div class=" bg-slate-950 grid grid-cols-4 gap-2 my-3 h-20">
+            <div class=" col-span-1 bg-slate-500 rounded-md overflow-y-auto " name="fonnn">
+                {% for fontt in fontss %}
+                    <input type="radio"  name="fonts" id="{{ fontt }}" value="{{ fontt }}" >{{ fontt }}<br>
+                {% endfor %}
+            </div>
+
+            <!-- To see what types of messages you will get -->
+            <div class="col-span-3 bg-slate-800 rounded-md huhh grid grid-cols-6" id="friendd">
+                <div hidden class="foees col-span-2">
+                    {% for h in range( no_knoww | length) %}
+                        {% if h >= 3 %}
+                        {% elif  no_knoww[h] %}
+                            <input type="checkbox" name="guu" id="{{no_knoww[h]}}" class="mx-2">{{ no_knoww[h]}}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div hidden class="foees col-span-2">
+                    {% for h in range( no_knoww | length) %}
+                        {% if h >=3%}
+                        {% elif  no_knoww[h+3] %}
+                            <input type="checkbox" name="guu" id="{{no_knoww[h+3]}}" class="mx-2">{{ no_knoww[h+3]}}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div hidden class="foees col-span-2">
+                    {% for h in range( no_knoww | length) %}
+                        {% if h >= 3 %}
+                        {% elif  no_knoww[h+6] %}
+                            <input type="checkbox" name="guu" id="{{no_knoww[h+6]}}" class="mx-2">{{ no_knoww[h+6]}}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="knowwws col-span-2">
+                    {% for i in range( knoww | length) %}
+                        {% if i >= 3%}
+                        {% elif knoww[i] %}
+                            <input type="checkbox" name="huu" id="{{knoww[i]}}" class="mx-2">{{ knoww[i] }}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="knowwws col-span-2">
+                    {% for i in range( knoww | length) %}
+                        {% if i >= 3%}
+                        {% elif  no_knoww[i+3] %}
+                        <input type="checkbox" name="huu" id="{{knoww[i + 3]}}" class="bg-slate-700 checked:bg-slate-700 mx-2">{{ knoww[i + 3] }}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="knowwws col-span-2">
+                    {% for i in range( knoww | length) %}
+                        {% if i >= 3%}
+                        {% elif no_knoww[i+6] %}
+                        <input type="checkbox" name="huu" id="{{knoww[i + 6]}}" class="bg-slate-700 checked:bg-slate-700 mx-2">{{ knoww[i + 6] }}<br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- This is for the single rectangle -->
+        <textarea id="nnn" cols="30" rows="10" 
+            class=" bg-slate-400 rounded-md h-40 w-full text-slate-900 ind px-2 pt-1 defau">
+        </textarea>
+        <div>
+            {% if messsgas is none %}
+                No messages
+            {% else %}
+                {% for mn in messsgas%}
+                <p class="meggas p-3"> {{ mn[0] }} </p>
+                {% endfor %}
+            {% endif %}
+        <div>
+    </div>
+    <script>
+        <!-- Sending messages  -->
+        function sendder(){
+            peeps = huu(document.getElementsByName("huu"), document.getElementsByName("guu"));
+
+            $.ajax({
+                    type: "POST", 
+                    url: "{{ url_for('index')}}",
+                    data: {
+                           "veng": $('#nnn').val(),
+                           "peeps": peeps},
+                })
+        }
+
+        function messer(view){
+            $.ajax({
+                type: "GET", 
+                url: "{{ url_for('index')}}",
+                success: function(data) {
+                    // Handle the successful response here
+                    $('#response').text(data.message);
+                },
+                error: function(xhr, status, error) {
+                    // Handle any errors that occur during the request
+                    console.error('Error:', status, error);
+                },
+                data: {
+                    "view_state": view,
+                }
+            })
+        }
+    </script>
+    
+{% endblock %}

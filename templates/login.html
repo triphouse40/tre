@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block styler %}
+    <link rel="stylesheet" href= {{loggi}} >
+    <script src="static/javascript/loginn.js"></script>
+{% endblock %}
+input
+{% block body %}
+<form action="/login" method="post">
+    <div class=" grid grid-cols-5 my-5">
+        <button type="reset" class=" bg-slate-950 mt-36 ml-10 text-center border-slate-900 pl-11 rounded-full border-4">Reset</button>
+        <div class=" grid grid-rows-3 bg-slate-950 col-span-3 place-content-center rounded-md mx-5">
+            <div class=" text-center mt-4 gom text-3xl">Note taker</div>
+            <input type="text" name="userr" placeholder="Enter your username" class=" p-2 rounded-md my-2 bg-slate-700" autocomplete="off">
+            <input type="password" name="pword" id="" placeholder="Enter your password" class="p-2 rounded-md my-2 bg-slate-700 mpem">
+            <br>
+        </div>
+
+        <button type="button" id="myButton" class=" mt-36 mr-10 text-center pr-11 border-4 border-slate-900 rounded-full">
+            <a href="registar">Registar</a>
+        </button>
+        <div></div>
+        <button type="submit" class=" bg-slate-950 col-span-3 text-center border-4 border-slate-900 rounded-lg">login</button>
+        <div></div>
+    </div>
+
+</form>
+{% endblock %}
